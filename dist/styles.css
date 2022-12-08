@@ -1,0 +1,150 @@
+:root{
+    --wheat: #EDD4B2;
+    --darkwheat: #D0A98F;
+    --byzantium: #4D243D;
+    --silver: #51504e;
+    --almond: #ECDCC9;
+    --red: #a42929;
+    --orange: #c9571d;
+    --green: #0d7334;
+    --white: #ffffff;
+    --maven: 'Maven Pro', sans-serif;
+    --petit: 'Petit Formal Script', cursive;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+    font-family: var(--maven);
+    font-size: 18px;
+    color: var(--silver);
+}
+
+header{
+    display: flex;
+    align-items: center;
+    height: 66px;
+    padding: 0 36px;
+    color: var(--almond);
+    background-color: var(--byzantium);
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: 500;
+    font-family: var(--petit);
+}
+
+/*SideBar*/
+.sidebar{
+    width: 360px;
+    height: 100%;
+    position: fixed;
+    padding: 40px 20px;
+    background-color: var(--wheat);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-project-nav, .sidebar-project-list{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 40px;
+}
+
+.sidebar-project-nav a, .sidebar-project-list a{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: var(--silver);
+    text-decoration: none;
+    transition: all 0.2s;
+    padding: 10px 6px;
+    margin-right: 4px;
+}
+
+.sidebar-project-title{
+    display: flex;
+    gap: 260px;
+}
+
+.sidebar-project-nav a:last-child, .sidebar-project-list a:last-child{
+    margin-bottom: 0;
+}
+
+.sidebar-project-nav a.active, .sidebar-projects-list a.active {
+  background-color: var(--white);
+}
+
+.sidebar-project-nav a:hover:not(.active), .sidebar-projects-list a:hover:not(.active) {
+  background-color: var(--white);
+  transition: all .2s;
+}
+
+.sidebar-new-project{
+    cursor: pointer;
+}
+
+.sidebar-line{
+    margin: 10px 0 20px;
+    border-bottom: 1px solid rgba(0,0,0,.25);
+}
+
+/* Main */
+main {
+    margin-left: 360px;
+    padding: 40px;
+}
+
+.todo-head{
+    margin-bottom: 40px;
+}
+
+.todo-item, .todo-item-add{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 70px;
+    border-bottom: 1px solid rgba(0,0,0,.25);
+    cursor: pointer;
+}
+
+.todo-item:hover,.todo-item-add:hover{
+    background-color: var(--darkwheat);
+    transition: all .2s;
+}
+
+.todo-icon{
+    margin-right: 10px;
+}
+
+.todo-title {
+    flex-grow: 1;
+}
+.todo-title.done {
+    text-decoration: line-through;
+}
+
+
+/* Responsive */
+
+@media screen and (max-width: 720px) {
+    .sidebar{
+        width: auto;
+        height: auto;
+        position: relative;
+    }
+    .sidebar a{float: left;}
+    main{margin-left: 0;}
+    .sidebar-project-title{gap: 20px}
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a{
+        text-align: center;
+        float: none;
+    }
+}

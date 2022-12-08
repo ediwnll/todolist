@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <title>TODO - To do list</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <p class="logo">The Tracking List</p>
+  </header>
+
+  <div class="sidebar">
+    <div class="sidebar-project-nav">
+      <a class="active" href="#"><i class="fa-solid fa-bars-progress"></i></i>Tasks</a>
+      <a href="#"><i class="fa-solid fa-calendar-day"></i>Today</a>
+      <a href="#"><i class="fa-solid fa-calendar-week"></i>Next 7 days</a>
+      <a href="#"><i class="fa-regular fa-calendar-plus"></i>Important</a>
+      <a href="#"><i class="fa-regular fa-calendar-check"></i>Completed</a>
+    </div>
+
+    <div class="sidebar-projects">
+      <p class="sidebar-project-title">Projects <span class="sidebar-new-project"><i class="fa-regular fa-square-plus"></i></span></p>
+      <div class="sidebar-line"></div>
+      <div class="sidebar-project-list">
+        <a class="active" href="#"><i class="fa-solid fa-shuttle-space"></i>Test Launch</a>
+        <a href="#"><i class="fa-solid fa-briefcase"></i>Work Launch</a>
+      </div>
+    </div>
+  </div>
+  <main>
+    <div class="todo-head">
+        <h1>Inbox</h1>
+    </div>
+    <div>
+        <div class="todo-item">
+            <i class="fa-regular fa-circle todo-icon"></i>
+            <p class="todo-title">Do chores</p>
+            <p>2020-04-21</p>
+        </div>
+        <div class="todo-item done">
+            <i class="fa-regular fa-circle-check todo-icon"></i>
+            <p class="todo-title done">Make Appointment</p>
+            <p>2020-04-21</p>
+        </div>
+        <div class="todo-item-add">
+            <i class="fa-solid fa-plus todo-icon"></i>
+            <p class="todo-title">Add</p>
+            <p>2020-04-21</p>
+        </div>
+    </div>
+  </main>
+  
+  <script src="main.js"></script>
+</body>
+</html>
