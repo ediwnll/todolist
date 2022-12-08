@@ -12,6 +12,14 @@
     --petit: 'Petit Formal Script', cursive;
 }
 
+/*Utility styles */
+.hide{
+    display: none;
+}
+.display{
+    display: block;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -84,8 +92,12 @@ header{
   transition: all .2s;
 }
 
-.sidebar-new-project{
+.add-proj-modal, .delete-proj-modal, .edit-proj-modal{
     cursor: pointer;
+}
+
+.delete-proj-modal{
+    color: var(--red);
 }
 
 .sidebar-line{
@@ -97,6 +109,7 @@ header{
 main {
     margin-left: 360px;
     padding: 40px;
+    padding-left: 90px;
 }
 
 .todo-head{
@@ -117,8 +130,13 @@ main {
     transition: all .2s;
 }
 
-.todo-icon{
+.todo-item > *:not(:last-child),
+.todo-item-add> *:not(:last-child){
     margin-right: 10px;
+}
+
+.delete-todo{
+    color: var(--red);
 }
 
 .todo-title {
@@ -128,6 +146,172 @@ main {
     text-decoration: line-through;
 }
 
+/* Modal */
+.modal{
+    position:fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    overflow: auto;
+    background-color:rgba(255, 255, 255, 0.95);
+}
+
+.modal-box{
+    background-color: var(--almond);
+    margin: 15% auto;
+    border: solid 1px rgba(0,0,0,.25);
+    border-radius: 10px;
+    max-width: 417px;
+    box-shadow: 1px -1px 16px 10px rgba(0,0,0,0.78);
+    -webkit-box-shadow: 1px -1px 16px 10px rgba(0,0,0,0.78);
+    -moz-box-shadow: 1px -1px 16px 10px rgba(0,0,0,0.78);
+    animation-name: fadeIn;
+    animation-duration: .3s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.modal-head{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 10px 10px 0 0;
+    border-bottom: solid 1px rgba(0,0,0,.25);
+}
+
+.modal h2{
+    margin: 0;
+    color: var(--byzantium);
+}
+
+.close-x{
+    color: rgba(0,0,0,.15);
+    transition: all 0.3s;
+    font-size: 24px;
+}
+
+.close-x:hover, .close-x:focus{
+    color: var(--silver);
+    text-decoration:none;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+/*Modal Content*/
+
+.modal-content{
+    padding: 20px;
+}
+
+#add-project-form > div:not(:last-child){
+    margin-bottom: 15px;
+}
+
+#form-project-title{
+    width: 95%;
+    height: 40px;
+    padding: 0 8px;
+    margin-top: 5px;
+    border: solid 1px rgba(0,0,0,.15);
+    border-radius: 10px;
+    background-color: var(--white);
+    color: var(--silver);
+    transition: all 0.3s;
+}
+
+#form-project-title:focus{
+    border-color: var(--silver);
+    outline: none;
+    transition: 0.3s;
+}
+
+.add-project-icon{
+    display: flex;
+    flex-direction: row;
+    margin-top: 8px;
+    gap: 10px;
+}
+
+.add-project-icon div{
+    padding: 4px 4px 2px;
+    border-radius: 8px;
+    margin-right: 10px;
+    background-color: var(--almond);
+    border: 1px solid var(--silver);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.add-project-icon div:hover:not(.active){
+    border: 1px solid var(--silver);
+    transition: all 0.3s;
+}
+
+.add-project-icon div.active{
+    border: 1px solid var(--silver);
+    transition: all 0.3s;
+}
+
+.modal-line{
+    border-bottom: solid 1px rgba(0,0,0,.15);
+    margin: 10px -20px;
+}
+
+.modal .button-right {
+    display: flex;
+    justify-content: right;
+    gap:12px;
+}
+
+/* Button Styling for Project Modal*/
+
+#add-project, .cancel{
+    border: solid 1px rgba(0,0,0,.25);
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--white);
+    transition: all 0.3s;
+}
+
+#add-project:hover, .cancel:hover{
+    transition: all 0.3s;
+}
+
+#add-project {
+    background-color: var(--byzantium);
+}
+  
+#add-project:hover {
+    background-color: var(--red);
+}
+
+.cancel{
+    color: #51504e;
+}
+
+.cancel:hover{
+    color:var(--white);
+    background-color: #51504e;
+}
+
+/*Form Error*/
+
+.name-error{
+    display: none;
+    margin: 6px 0 0;
+    font-size: 14px;
+    color:var(--red);
+}
 
 /* Responsive */
 

@@ -18,46 +18,107 @@
     <p class="logo">The Tracking List</p>
   </header>
 
-  <div class="sidebar">
+  <nav class="sidebar">
     <div class="sidebar-project-nav">
-      <a class="active" href="#"><i class="fa-solid fa-bars-progress"></i></i>Tasks</a>
-      <a href="#"><i class="fa-solid fa-calendar-day"></i>Today</a>
-      <a href="#"><i class="fa-solid fa-calendar-week"></i>Next 7 days</a>
-      <a href="#"><i class="fa-regular fa-calendar-plus"></i>Important</a>
-      <a href="#"><i class="fa-regular fa-calendar-check"></i>Completed</a>
+      <a class="sidebar-link active" href="#"><i class="fa-solid fa-bars-progress sidebar-link"></i></i>Tasks</a>
+      <a class="sidebar-link" href="#"><i class="fa-solid fa-calendar-day sidebar-link"></i>Today</a>
+      <a class="sidebar-link" href="#"><i class="fa-solid fa-calendar-week sidebar-link"></i>Next 7 days</a>
+      <a class="sidebar-link" href="#"><i class="fa-regular fa-calendar-plus sidebar-link"></i>Important</a>
+      <a class="sidebar-link" href="#"><i class="fa-regular fa-calendar-check sidebar-link"></i>Completed</a>
     </div>
 
     <div class="sidebar-projects">
-      <p class="sidebar-project-title">Projects <span class="sidebar-new-project"><i class="fa-regular fa-square-plus"></i></span></p>
+      <p class="sidebar-project-title">Projects<i class="fa-regular fa-square-plus add-proj-modal"></i></p>
       <div class="sidebar-line"></div>
       <div class="sidebar-project-list">
-        <a class="active" href="#"><i class="fa-solid fa-shuttle-space"></i>Test Launch</a>
-        <a href="#"><i class="fa-solid fa-briefcase"></i>Work Launch</a>
+        <a class="sidebar-project active" href="#">
+            <i class="fa-solid fa-shuttle-space"></i>Test Launch
+            <i class="fa-regular fa-trash-can delete-proj-modal"></i>
+            <i class="fa-regular fa-pen-to-square edit-proj-modal"></i>
+        </a>
+        <a class="sidebar-project" href="#">
+            <i class="fa-solid fa-briefcase"></i>Work Launch
+            <i class="fa-regular fa-trash-can delete-proj-modal"></i>
+            <i class="fa-regular fa-pen-to-square edit-proj-modal"></i>
+        </a>
       </div>
     </div>
-  </div>
+</nav>
   <main>
     <div class="todo-head">
-        <h1>Inbox</h1>
+        <h1>
+            <span class="todo-head-nav">Inbox</span> (<span class="todo-header-project">Home</span>)
+        </h1>
     </div>
     <div>
-        <div class="todo-item">
-            <i class="fa-regular fa-circle todo-icon"></i>
-            <p class="todo-title">Do chores</p>
-            <p>2020-04-21</p>
+        <div class="todo-item toggle-todo">
+            <i class="fa-regular fa-circle todo-icon toggle-todo"></i>
+            <p class="todo-title toggle-todo">Do chores</p>
+            <p class="todo-item-date toggle-todo">2020-04-21</p>
+            <i class="fa-regular fa-pen-to-square edit-todo-modal"></i>
+            <i class="fa-regular fa-trash-can delete-todo remove-todo"></i>
         </div>
-        <div class="todo-item done">
-            <i class="fa-regular fa-circle-check todo-icon"></i>
-            <p class="todo-title done">Make Appointment</p>
-            <p>2020-04-21</p>
+        <div class="todo-item toggle-todo">
+            <i class="fa-regular fa-circle todo-icon toggle-todo"></i>
+            <p class="todo-title toggle-todo">Do Laundry</p>
+            <p class="todo-item-date toggle-todo">2020-04-21</p>
+            <i class="fa-regular fa-pen-to-square edit-todo-modal"></i>
+            <i class="fa-regular fa-trash-can delete-todo remove-todo"></i>
         </div>
-        <div class="todo-item-add">
-            <i class="fa-solid fa-plus todo-icon"></i>
-            <p class="todo-title">Add</p>
+        <div class="todo-item-add add-todo-modal">
+            <i class="fa-solid fa-plus todo-icon add-todo-modal"></i>
+            <p class="todo-title add-todo-modal">Add new task</p>
             <p>2020-04-21</p>
         </div>
     </div>
   </main>
+
+  <!--Project Modal-->
+  <div id="add-proj-modal" class="modal hide">
+    <div class="modal-box">
+        <div class="modal-head">
+            <i class="fa-solid fa-xmark close close-x"></i>
+            <h2>New Project</h2>
+        </div>
+        <div class="modal-content">
+            <form method="post" id="add-project-form" name="add-project-form">
+                <div>
+                    <label for="form-project-title">Project Title</label>
+                    <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
+                    <p class="name-error">Please fill up this area.</p>
+                </div>
+
+                <div>
+                    <label for="form-project-icon">Project Icon</label>
+                    <div class="add-project-icon">
+                        <div class="project-icon">
+                            <i class="fa-solid fa-house project-icon"></i>
+                        </div>
+                        <div class="project-icon">
+                            <i class="fa-solid fa-graduation-cap project-icon"></i>
+                        </div>
+                        <div class="project-icon">
+                            <i class="fa-regular fa-heart project-icon"></i>
+                        </div>
+                        <div class="project-icon">
+                            <i class="fa-solid fa-cart-shopping project-icon"></i>
+                        </div>
+                        <div class="project-icon">
+                            <i class="fa-solid fa-pencil project-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-line"></div>
+
+                <div class="button-right">
+                    <button class="close cancel" type="button">Cancel</button>
+                    <button id="add-project" type="submit" href="#">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
   
   <script src="main.js"></script>
 </body>
