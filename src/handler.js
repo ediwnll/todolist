@@ -1,4 +1,3 @@
-import { ESLint } from "eslint";
 import dom from "./dom";
 
 const handler = (()=>{
@@ -16,8 +15,12 @@ const handler = (()=>{
             }
             //Open add project modal
             else if(e.target.classList.contains('add-proj-modal')){
-                dom.showModal(e.target)
+                dom.showModal(dom.addProjectModal)
                 console.log('open proj modal')
+            }
+            //close modal
+            else if(e.target.classList.contains('close') || e.target.classList.contains('modal')){
+                dom.hideModal(dom.addProjectModal)
             }
             //Add project icon
             else if(e.target.classList.contains('project-icon')){
