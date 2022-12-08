@@ -27,4 +27,9 @@ const handler = (()=>{
             //Continue tomorrow
         })
     }
-})
+    return{
+        clickHandler
+    }
+})();
+
+export default handler;
