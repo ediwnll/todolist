@@ -13,11 +13,11 @@ const dom = (()=>{
     }
 
     function activeLink(link){
-        const navLink = document.querySelector('.sidebar-link')
+        const navLink = document.querySelectorAll('.sidebar-link')
         navLink.forEach((element)=>{
             element.classList.remove('active')
         })
-        if(link.classList.contains('fa')){
+        if(link.classList.contains('far')){
             link.parentElement.classList.add('active')
         }
         else{
@@ -43,7 +43,7 @@ const dom = (()=>{
         projectIcon.forEach((element)=>{
             element.classList.remove('active')
         })
-        if(icon.classList.contains('fa')){
+        if(icon.classList.contains('far')){
             icon.parentElement.classList.add('active')
         }
         else{

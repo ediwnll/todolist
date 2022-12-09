@@ -83,11 +83,11 @@ header{
     margin-bottom: 0;
 }
 
-.sidebar-project-nav a.active, .sidebar-projects-list a.active {
+.sidebar-project-nav a.active, .sidebar-project-list a.active {
   background-color: var(--white);
 }
 
-.sidebar-project-nav a:hover:not(.active), .sidebar-projects-list a:hover:not(.active) {
+.sidebar-project-nav a:hover:not(.active), .sidebar-project-list a:hover:not(.active) {
   background-color: var(--white);
   transition: all .2s;
 }
@@ -257,7 +257,8 @@ main {
 }
 
 .add-project-icon div.active{
-    border: 1px solid var(--silver);
+    border: 1px solid var(--byzantium);
+    color: var(--byzantium);
     transition: all 0.3s;
 }
 
