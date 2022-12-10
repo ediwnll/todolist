@@ -83,14 +83,45 @@
         <div class="modal-content">
             <form method="post" id="add-project-form" name="add-project-form">
                 <div>
-                    <label for="form-project-title">Project Title</label>
+                    <label for="project-title-label">Project Title</label>
                     <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
-                    <p class="name-error">Please fill up this area.</p>
+                    <p class="title-error hide">Please fill up this area.</p>
                 </div>
 
-                <div>
+                <div class="form-radio" >
                     <label for="form-project-icon">Project Icon</label>
-                    <div class="add-project-icon">
+                    <div id="project-icons">
+                        <label class="radio radio-before">
+                            <span class="radio-input">
+                              <input type="radio" id="project-house" name="project-icon" value="project-house" checked>
+                              <span class="radio-control"><i class="far fa-solid fa-house"></i></span>
+                            </span>
+                        </label>
+                        <label class="radio radio-before">
+                            <span class="radio-input">
+                              <input type="radio" id="project-graduation" name="project-icon" value="project-graduation">
+                              <span class="radio-control"><i class="far fa-solid fa-graduation-cap"></i></span>
+                            </span>
+                        </label>
+                        <label class="radio radio-before">
+                            <span class="radio-input">
+                              <input type="radio" id="project-heart" name="project-icon" value="project-heart">
+                              <span class="radio-control"><i class="far fa-regular fa-heart"></i></span>
+                            </span>
+                        </label>
+                        <label class="radio radio-before">
+                            <span class="radio-input">
+                              <input type="radio" id="project-shopping" name="project-icon" value="project-shopping">
+                              <span class="radio-control"><i class="far fa-solid fa-cart-shopping"></i></span>
+                            </span>
+                        </label>
+                        <label class="radio radio-before">
+                            <span class="radio-input">
+                              <input type="radio" id="project-pencil" name="project-icon" value="project-pencil">
+                              <span class="radio-control"><i class="far fa-solid fa-pencil"></i></span>
+                            </span>
+                        </label>
+                        <!--
                         <div class="project-icon">
                             <i class="far fa-solid fa-house project-icon"></i>
                         </div>
@@ -106,6 +137,7 @@
                         <div class="project-icon">
                             <i class="far fa-solid fa-pencil project-icon"></i>
                         </div>
+                        --> 
                     </div>
                 </div>
 

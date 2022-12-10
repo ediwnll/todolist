@@ -234,32 +234,50 @@ main {
     transition: 0.3s;
 }
 
-.add-project-icon{
+/*Styling for radio button */
+
+#project-icons{
     display: flex;
     flex-direction: row;
     margin-top: 8px;
     gap: 10px;
 }
 
-.add-project-icon div{
-    padding: 4px 4px 2px;
-    border-radius: 8px;
-    margin-right: 10px;
-    background-color: var(--almond);
-    border: 1px solid var(--silver);
-    transition: all 0.3s;
+.radio {
+    font-size: 28px;
+    color: var(--grey);
     cursor: pointer;
+  }
+#project-icons input{
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.add-project-icon div:hover:not(.active){
+#project-icon input:focus + .radio-control{
     border: 1px solid var(--silver);
     transition: all 0.3s;
 }
 
-.add-project-icon div.active{
+.radio-before input:checked + .radio-control{
     border: 1px solid var(--byzantium);
     color: var(--byzantium);
     transition: all 0.3s;
+}
+
+.radio-control:hover {
+    border: 1px solid var(--silver);
+    transition: all 0.2s;
+}
+  
+.radio-control {
+    display: block;
+    padding: 4px 4px 1px;
+    border-radius: 8px;
+    background-color: var(--light-grey);
+    border: 1px solid var(--light-grey);
+    transition: all 0.2s;
 }
 
 .modal-line{
@@ -275,7 +293,7 @@ main {
 
 /* Button Styling for Project Modal*/
 
-#add-project, .cancel{
+.button{
     border: solid 1px rgba(0,0,0,.25);
     padding: 8px;
     cursor: pointer;
@@ -284,15 +302,15 @@ main {
     transition: all 0.3s;
 }
 
-#add-project:hover, .cancel:hover{
+.button:hover{
     transition: all 0.3s;
 }
 
-#add-project {
+#add-project,#remove-project {
     background-color: var(--byzantium);
 }
   
-#add-project:hover {
+#add-project:hover,#remove-project:hover {
     background-color: var(--red);
 }
 
@@ -307,8 +325,8 @@ main {
 
 /*Form Error*/
 
-.name-error{
-    display: none;
+.title-error{
+    
     margin: 6px 0 0;
     font-size: 14px;
     color:var(--red);

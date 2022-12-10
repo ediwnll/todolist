@@ -1,4 +1,5 @@
 import dom from "./dom";
+import validation from "./validation";
 
 const handler = (() => {
   function clickHandler() {
@@ -16,7 +17,7 @@ const handler = (() => {
       }
       //Open add project modal
       else if (e.target.classList.contains("add-proj-modal")) {
-        dom.showModal(dom.addProjectModal);
+        dom.showElement(dom.addProjectModal);
         console.log("open proj modal");
       }
       //close modal
@@ -24,12 +25,7 @@ const handler = (() => {
         e.target.classList.contains("close") ||
         e.target.classList.contains("modal")
       ) {
-        dom.hideModal(dom.addProjectModal);
-      }
-      //Add project icon
-      else if (e.target.classList.contains("project-icon")) {
-        dom.activeProjectIcon(e.target);
-        console.log("Select project icon");
+        dom.hideElement(dom.addProjectModal);
       }
       //Edit project modal
       else if(e.target.classList.contains("edit-proj-modal")){
@@ -55,6 +51,7 @@ const handler = (() => {
       else if(e.target.id === "add-project"){
         console.log("add project")
         e.preventDefault()
+        validation.formValidate()
       }
       //remove project
       else if(e.target.classList.contains("remove-project")){
@@ -74,7 +71,7 @@ const handler = (() => {
   function keyboardHandler(){
     document.addEventListener('keyup', (event)=>{
         if(event.key === 'Escape'){
-            dom.hideModal(dom.addProjectModal)
+            dom.hideElement(dom.addProjectModal)
         }
     })
   }
