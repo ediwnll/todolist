@@ -1,8 +1,11 @@
 import dom from "./dom";
 import validation from "./validation";
+import project from "./projects";
 
 const handler = (() => {
   function clickHandler() {
+
+    let projectIndex
     dom.body.addEventListener("click", (e) => {
       //Nav
       if (e.target.classList.contains("sidebar-link")) {
@@ -25,17 +28,18 @@ const handler = (() => {
         e.target.classList.contains("close") ||
         e.target.classList.contains("modal")
       ) {
-        dom.hideElement(dom.addProjectModal);
+        dom.hideElement(dom.modals);
       }
       //Edit project modal
       else if(e.target.classList.contains("edit-proj-modal")){
         console.log("edit project modal")
-        //dom.showModal(dom.editProjectModal)
+        //dom.showELement(dom.editProjectModal)
       }
       //Delete project modal
       else if(e.target.classList.contains("delete-proj-modal")){
         console.log("Delete project modal")
-        //dom.showModal(dom.deleteProjectModal)
+        dom.showElement(dom.deleteProjectModal)
+        projectIndex = e.target.parentElement.getAttribute('data-index')
       }
       //Add task modal open
       else if(e.target.classList.contains("add-todo-modal")){
@@ -54,8 +58,8 @@ const handler = (() => {
         validation.formValidate()
       }
       //remove project
-      else if(e.target.classList.contains("remove-project")){
-        console.log("remove project")
+      else if(e.target.id === "remove-project"){
+        project.removeProject(projectIndex)
       }
       //toggle task
       else if(e.target.classList.contains("toggle-todo")){
@@ -71,7 +75,7 @@ const handler = (() => {
   function keyboardHandler(){
     document.addEventListener('keyup', (event)=>{
         if(event.key === 'Escape'){
-            dom.hideElement(dom.addProjectModal)
+            dom.hideElement(dom.modals)
         }
     })
   }

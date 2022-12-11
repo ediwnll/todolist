@@ -144,11 +144,28 @@
                 <div class="modal-line"></div>
 
                 <div class="button-right">
-                    <button class="close cancel" type="button">Cancel</button>
-                    <button id="add-project" type="submit" href="#">Create</button>
+                    <button class="button close cancel" type="button">Cancel</button>
+                    <button class="button" id="add-project" type="submit" href="#">Create</button>
                 </div>
             </form>
         </div>
+    </div>
+  </div>
+  <!--Confirm modal-->
+  <div id="delete-proj-modal" class="modal hide">
+    <div class="modal-box">
+      <div class="modal-head">
+        <i class="close close-x far fa-solid fa-xmark"></i>
+        <h2>Remove project</h2>
+      </div>
+      <div class="modal-content">
+        <p>This action cannot be reverted.</p>
+        <div class="modal-line"></div>
+        <div class="button-right">
+          <button class="button close cancel" type="button">Cancel</button>
+          <button class="button" id="remove-project" type="submit" href="#">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
   
