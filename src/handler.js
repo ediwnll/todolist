@@ -5,7 +5,7 @@ import project from "./projects";
 const handler = (() => {
   function clickHandler() {
 
-    let projectIndex
+    let projectIndex;
     dom.body.addEventListener("click", (e) => {
       //Nav
       if (e.target.classList.contains("sidebar-link")) {
@@ -20,26 +20,21 @@ const handler = (() => {
       }
       //Open add project modal
       else if (e.target.classList.contains("add-proj-modal")) {
-        dom.showElement(dom.addProjectModal);
+        dom.showProjectModal('addProject');
         console.log("open proj modal");
-      }
-      //close modal
-      else if (
-        e.target.classList.contains("close") ||
-        e.target.classList.contains("modal")
-      ) {
-        dom.hideElement(dom.modals);
       }
       //Edit project modal
       else if(e.target.classList.contains("edit-proj-modal")){
         console.log("edit project modal")
+        projectIndex = e.target.parentElement.getAttribute('data-index');
+        dom.showProjectModal('editProject', projectIndex)
         //dom.showELement(dom.editProjectModal)
       }
       //Delete project modal
       else if(e.target.classList.contains("delete-proj-modal")){
         console.log("Delete project modal")
-        dom.showElement(dom.deleteProjectModal)
         projectIndex = e.target.parentElement.getAttribute('data-index')
+        dom.showProjectModal('removeProject')
       }
       //Add task modal open
       else if(e.target.classList.contains("add-todo-modal")){
@@ -51,11 +46,22 @@ const handler = (() => {
         console.log("Edit task modal")
         //dom.showModal(dom.editTaskModal)
       }
+      //close modal
+      else if (
+        e.target.classList.contains("close") ||
+        e.target.classList.contains("modal")
+      ) {
+        dom.hideElement(dom.modals);
+      }
       //Add project
       else if(e.target.id === "add-project"){
         console.log("add project")
-        e.preventDefault()
-        validation.formValidate()
+        validation.addProject(e)
+      }
+      //Edit project
+      else if(e.target.id === "edit-project"){
+        console.log("editing project")
+        validation.editProject(e, projectIndex)
       }
       //remove project
       else if(e.target.id === "remove-project"){

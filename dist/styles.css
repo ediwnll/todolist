@@ -306,11 +306,11 @@ main {
     transition: all 0.3s;
 }
 
-#add-project,#remove-project {
+#project-button,#confirm-button {
     background-color: var(--byzantium);
 }
   
-#add-project:hover,#remove-project:hover {
+#project-button:hover,#confirm-button:hover {
     background-color: var(--red);
 }
 

@@ -2,12 +2,63 @@ import project from "./projects";
 
 const dom = (()=>{
     const body = document.querySelector('body')
-    const addProjectModal = document.querySelector('#add-proj-modal')
-    const addProjectForm = document.querySelector('#add-project-form')
-    const addProjectTitleError = document.querySelector('.title-error')
+    const projectModal = document.querySelector('#add-proj-modal')
+    const projectForm = document.querySelector('#add-project-form')
+    const projectTitleError = document.querySelector('.title-error')
     const projectList = document.querySelector('.sidebar-project-list')
-    const deleteProjectModal = document.querySelector('#delete-proj-modal')
+    const confirmProjectModal = document.querySelector('#delete-proj-modal')
     const modals = document.querySelectorAll(".modal")
+
+    function showProjectModal(modal, index=false){
+        const modalHead = document.querySelector('.project-modal-title')
+        const modalSubmitButton = document.querySelector('#project-button')
+
+        projectModal.classList.remove('hide')
+        projectModal.classList.add('display')
+
+        if(modal === 'addProject'){
+            projectForm.reset()
+            modalHead.textContent = 'New Project'
+            modalSubmitButton.classList.remove('edit-project')
+            modalSubmitButton.classList.add('add-project')
+            modalSubmitButton.textContent = 'Add'
+        }
+        else if(modal ==='editProject'){
+            const currentProjectTitle = project.projectList[index].title
+            const currentProjectIcon = project.projectList[index].icon
+
+            const projectTitle = document.querySelector('#form-project-title')
+            const projectIcon = document.querySelector(`input[value=${currentProjectIcon}]`)
+
+            projectTitle.value = currentProjectTitle
+            projectIcon.checked = true
+
+            modalHead.textContent = 'Edit Project'
+            modalSubmitButton.textContent = 'Edit'
+            modalSubmitButton.classList.remove('add-project')
+            modalSubmitButton.classList.add('edit-project')
+        }
+    }
+
+    function showConfirmModal(modal){
+        const modalHead = document.querySelector('.confirm-modal-title')
+        const modalSubmitButton = document.querySelector('#confirm-button')
+
+        confirmProjectModal.classList.remove('hide')
+        confirmProjectModal.classList.add('display')
+        modalSubmitButton.textContent = 'Remove'
+
+        if(modal === 'removeProject'){
+            modalHead.textContent = 'Remove Project'
+            modalSubmitButton.classList.remove('remove-task')
+            modalSubmitButton.classList.add('remove-project')
+        }
+        else if(modal === 'removeTask'){
+            modalHead.textContent = 'Remove Task'
+            modalSubmitButton.classList.remove('remove-project')
+            modalSubmitButton.classList.remove('remove-task')
+        }
+    }
 
     function showElement(element){
         element.classList.remove('hide')
@@ -16,7 +67,7 @@ const dom = (()=>{
 
     function hideElement(modal){
         if(Object.prototype.isPrototypeOf.call(NodeList.prototype,modal)){
-            modals.forEach((element)=>{
+            modal.forEach((element)=>{
                 element.classList.remove('display')
                 element.classList.add('hide')
             })
@@ -28,11 +79,11 @@ const dom = (()=>{
     }
 
     function activeLink(link){
-        const navLink = document.querySelectorAll('.sidebar-link')
+        const navLink = document.querySelectorAll('a.sidebar-link')
         navLink.forEach((element)=>{
             element.classList.remove('active')
         })
-        if(link.classList.contains('far')){
+        if(link.classList.contains('sidebar-link-icon')){
             link.parentElement.classList.add('active')
         }
         else{
@@ -41,11 +92,11 @@ const dom = (()=>{
     }
 
     function activeProject(project){
-        const projectLink = document.querySelectorAll('.sidebar-project');
+        const projectLink = document.querySelectorAll('a.sidebar-project');
         projectLink.forEach((element)=>{
             element.classList.remove('active')
         })
-        if(project.classList.contains('fa-edit')){
+        if(project.classList.contains('sidebar-project-icon')){
             project.parentElement.classList.add('active')
         }
         else{
@@ -66,7 +117,7 @@ const dom = (()=>{
 
             //create icon
             const projectIcon = document.createElement('i')
-            projectIcon.classList.add('far', project.projectList[i].icon)
+            projectIcon.classList.add('far', project.projectList[i].icon, 'sidebar-project', 'sidebar-project-icon')
             projectLink.appendChild(projectIcon)
 
             //create name
@@ -101,16 +152,18 @@ const dom = (()=>{
 
     return{
         body,
-        addProjectModal,
-        addProjectForm,
-        addProjectTitleError,
-        deleteProjectModal,
+        projectForm,
+        projectTitleError,
+        projectModal,
         modals,
         showProjects,
         showElement,
         hideElement,
         activeLink,
         activeProject,
+        confirmProjectModal,
+        showConfirmModal,
+        showProjectModal,
     }
 })();
 

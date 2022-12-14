@@ -20,18 +20,19 @@
 
   <nav class="sidebar">
     <div class="sidebar-project-nav">
-      <a class="sidebar-link active" href="#"><i class="far fa-solid fa-bars-progress sidebar-link"></i></i>Tasks</a>
-      <a class="sidebar-link" href="#"><i class="far fa-solid fa-calendar-day sidebar-link"></i>Today</a>
-      <a class="sidebar-link" href="#"><i class="far fa-solid fa-calendar-week sidebar-link"></i>Next 7 days</a>
-      <a class="sidebar-link" href="#"><i class="far fa-regular fa-calendar-plus sidebar-link"></i>Important</a>
-      <a class="sidebar-link" href="#"><i class="far fa-regular fa-calendar-check sidebar-link"></i>Completed</a>
+      <a class="sidebar-link active" href="#"><i class="far fa-solid fa-bars-progress sidebar-link sidebar-link-icon"></i></i>Tasks</a>
+      <a class="sidebar-link" href="#"><i class="far fa-solid fa-calendar-day sidebar-link sidebar-link-icon"></i>Today</a>
+      <a class="sidebar-link" href="#"><i class="far fa-solid fa-calendar-week sidebar-link sidebar-link-icon"></i>Next 7 days</a>
+      <a class="sidebar-link" href="#"><i class="far fa-regular fa-calendar-plus sidebar-link sidebar-link-icon"></i>Important</a>
+      <a class="sidebar-link" href="#"><i class="far fa-regular fa-calendar-check sidebar-link sidebar-link-icon"></i>Completed</a>
     </div>
 
     <div class="sidebar-projects">
       <p class="sidebar-project-title">Projects<i class="fa-regular fa-square-plus add-proj-modal"></i></p>
       <div class="sidebar-line"></div>
       <div class="sidebar-project-list">
-        <a class="sidebar-project active" href="#">
+        <!--
+          <a class="sidebar-project active" href="#">
             <i class="far fa-solid fa-shuttle-space"></i>Test Launch
             <i class="far fa-regular fa-trash-can delete-proj-modal"></i>
             <i class="far fa-regular fa-pen-to-square edit-proj-modal"></i>
@@ -41,6 +42,9 @@
             <i class="far fa-regular fa-trash-can delete-proj-modal"></i>
             <i class="far fa-regular fa-pen-to-square edit-proj-modal"></i>
         </a>
+
+        using js to generate
+        -->
       </div>
     </div>
 </nav>
@@ -78,10 +82,10 @@
     <div class="modal-box">
         <div class="modal-head">
             <i class="far fa-solid fa-xmark close close-x"></i>
-            <h2>New Project</h2>
+            <h2 class="project-modal-title"></h2>
         </div>
         <div class="modal-content">
-            <form method="post" id="add-project-form" name="add-project-form">
+            <form id="add-project-form" name="add-project-form" method="POST">
                 <div>
                     <label for="project-title-label">Project Title</label>
                     <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
@@ -145,7 +149,7 @@
 
                 <div class="button-right">
                     <button class="button close cancel" type="button">Cancel</button>
-                    <button class="button" id="add-project" type="submit" href="#">Create</button>
+                    <button class="button" id="project-button" type="submit" href="#">Create</button>
                 </div>
             </form>
         </div>
@@ -156,14 +160,14 @@
     <div class="modal-box">
       <div class="modal-head">
         <i class="close close-x far fa-solid fa-xmark"></i>
-        <h2>Remove project</h2>
+        <h2 class="confirm-modal-title"></h2>
       </div>
       <div class="modal-content">
         <p>This action cannot be reverted.</p>
         <div class="modal-line"></div>
         <div class="button-right">
           <button class="button close cancel" type="button">Cancel</button>
-          <button class="button" id="remove-project" type="submit" href="#">Delete</button>
+          <button class="button" id="confirm-button" type="submit" href="#">Delete</button>
         </div>
       </div>
     </div>
