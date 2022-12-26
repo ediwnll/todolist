@@ -5,12 +5,18 @@ import project from "./projects";
 const handler = (() => {
   function clickHandler() {
 
-    let projectIndex;
+    let projectIndex = 0
+    let taskIndex = 0
     dom.body.addEventListener("click", (e) => {
       //Nav
       if (e.target.classList.contains("sidebar-link")) {
         console.log("nav link");
         dom.activeLink(e.target);
+      }
+      //Toggle Sidebar
+      else if(e.target.classList.contains('toggle-sidebar')){
+        console.log('Toggling Sidebar')
+        dom.toggleSidebar()
       }
       //Sidebar Project
       else if (e.target.classList.contains("sidebar-project")) {
@@ -34,7 +40,7 @@ const handler = (() => {
       else if(e.target.classList.contains("delete-proj-modal")){
         console.log("Delete project modal")
         projectIndex = e.target.parentElement.getAttribute('data-index')
-        dom.showProjectModal('removeProject')
+        dom.showConfirmModal('removeProject', projectIndex)
       }
       //Add task modal open
       else if(e.target.classList.contains("add-todo-modal")){
@@ -54,17 +60,17 @@ const handler = (() => {
         dom.hideElement(dom.modals);
       }
       //Add project
-      else if(e.target.id === "add-project"){
+      else if(e.target.classList.contains('add-project')){
         console.log("add project")
         validation.addProject(e)
       }
       //Edit project
-      else if(e.target.id === "edit-project"){
+      else if(e.target.classList.contains('edit-project')){
         console.log("editing project")
         validation.editProject(e, projectIndex)
       }
       //remove project
-      else if(e.target.id === "remove-project"){
+      else if(e.target.classList.contains('remove-project')){
         project.removeProject(projectIndex)
       }
       //toggle task
@@ -74,6 +80,7 @@ const handler = (() => {
       //remove task
       else if(e.target.classList.contains("remove-todo")){
         console.log("remove task")
+        dom.showConfirmModal('removeTask', taskIndex)
       }
     });
   }
@@ -85,9 +92,13 @@ const handler = (() => {
         }
     })
   }
+  function resizeHandler(){
+    window.addEventListener('resize', dom.responsiveSidebar)
+  }
   return {
     clickHandler,
     keyboardHandler,
+    resizeHandler,
   };
 })();
 

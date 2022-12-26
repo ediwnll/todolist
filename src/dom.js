@@ -1,15 +1,44 @@
 import project from "./projects";
+import tasks from "./tasks";
 
 const dom = (()=>{
     const body = document.querySelector('body')
+    const projectList = document.querySelector('.sidebar-project-list')
     const projectModal = document.querySelector('#add-proj-modal')
+    const confirmProjectModal = document.querySelector('#confirm-modal')
     const projectForm = document.querySelector('#add-project-form')
     const projectTitleError = document.querySelector('.title-error')
-    const projectList = document.querySelector('.sidebar-project-list')
-    const confirmProjectModal = document.querySelector('#delete-proj-modal')
     const modals = document.querySelectorAll(".modal")
+    const sidebar = document.querySelector('.sidebar')
+    const main = document.querySelector('main')
+    const todoList = document.querySelector('.todo-item-list')
 
-    function showProjectModal(modal, index=false){
+    function responsiveSidebar(){
+        if (window.innerWidth <= 960){
+            sidebar.classList.remove('sidebar-show')
+            sidebar.classList.add('sidebar-hide')
+            main.classList.remove('main-desktop')
+            main.classList.add('main-mobile')
+        }
+        else{
+            sidebar.classList.remove('sidebar-hide')
+            sidebar.classList.add('sidebar-show')
+            main.classList.add('main-desktop')
+            main.classList.remove('main-mobile')
+        }
+    }
+
+    function toggleSidebar(){
+        if(!sidebar.classList.contains('sidebar-show')){
+            sidebar.classList.remove('sidebar-hide')
+            sidebar.classList.add('sidebar-show')
+        }else if (sidebar.classList.contains('sidebar-show')){
+            sidebar.classList.remove('sidebar-show')
+            sidebar.classList.add('sidebar-hide')
+        }
+    }
+
+    function showProjectModal(modal, index = false){
         const modalHead = document.querySelector('.project-modal-title')
         const modalSubmitButton = document.querySelector('#project-button')
 
@@ -19,9 +48,10 @@ const dom = (()=>{
         if(modal === 'addProject'){
             projectForm.reset()
             modalHead.textContent = 'New Project'
+            modalSubmitButton.textContent = 'Add'
             modalSubmitButton.classList.remove('edit-project')
             modalSubmitButton.classList.add('add-project')
-            modalSubmitButton.textContent = 'Add'
+            
         }
         else if(modal ==='editProject'){
             const currentProjectTitle = project.projectList[index].title
@@ -40,21 +70,36 @@ const dom = (()=>{
         }
     }
 
-    function showConfirmModal(modal){
+    function showConfirmModal(modal, index){
         const modalHead = document.querySelector('.confirm-modal-title')
         const modalSubmitButton = document.querySelector('#confirm-button')
+        const modalContent = document.querySelector('.confirm-modal-content')
 
         confirmProjectModal.classList.remove('hide')
         confirmProjectModal.classList.add('display')
         modalSubmitButton.textContent = 'Remove'
 
+        const modalContentPre = document.createTextNode('You are removing ')
+        const modalContentPost = document.createTextNode('. This action cannot be reverted.')
+
+        modalContent.textContent = ''
+
         if(modal === 'removeProject'){
             modalHead.textContent = 'Remove Project'
+            const projectTitle = document.createElement('span')
+            projectTitle.classList.add('confirm-modal-project-title')
+            projectTitle.textContent = project.projectList[index].title
+            modalContent.appendChild(modalContentPre)
+            modalContent.appendChild(projectTitle)
+            modalContent.appendChild(modalContentPost)
             modalSubmitButton.classList.remove('remove-task')
             modalSubmitButton.classList.add('remove-project')
         }
         else if(modal === 'removeTask'){
             modalHead.textContent = 'Remove Task'
+            modalContent.appendChild(modalContentPre)
+            
+            modalContent.appendChild(modalContentPost)
             modalSubmitButton.classList.remove('remove-project')
             modalSubmitButton.classList.remove('remove-task')
         }
@@ -79,8 +124,8 @@ const dom = (()=>{
     }
 
     function activeLink(link){
-        const navLink = document.querySelectorAll('a.sidebar-link')
-        navLink.forEach((element)=>{
+        const navLinks = document.querySelectorAll('a.sidebar-link')
+        navLinks.forEach((element)=>{
             element.classList.remove('active')
         })
         if(link.classList.contains('sidebar-link-icon')){
@@ -92,8 +137,8 @@ const dom = (()=>{
     }
 
     function activeProject(project){
-        const projectLink = document.querySelectorAll('a.sidebar-project');
-        projectLink.forEach((element)=>{
+        const projectLinks = document.querySelectorAll('a.sidebar-project');
+        projectLinks.forEach((element)=>{
             element.classList.remove('active')
         })
         if(project.classList.contains('sidebar-project-icon')){
@@ -117,7 +162,7 @@ const dom = (()=>{
 
             //create icon
             const projectIcon = document.createElement('i')
-            projectIcon.classList.add('far', project.projectList[i].icon, 'sidebar-project', 'sidebar-project-icon')
+            projectIcon.classList.add('far', project.projectList[i].icon, 'fa-solid' ,'sidebar-project', 'sidebar-project-icon')
             projectLink.appendChild(projectIcon)
 
             //create name
@@ -134,6 +179,21 @@ const dom = (()=>{
             const projectEditIcon = document.createElement('i')
             projectEditIcon.classList.add('far', 'fa-regular', 'fa-pen-to-square','edit-proj-modal')
             projectLink.appendChild(projectEditIcon)
+        }
+    }
+
+    function showTasks(projectIndex){
+        todoList.textContent = ''
+        for(let i = 0; i<project.projectList[projectIndex].tasks.length; i += 1){
+            const todoItem = document.createElement('div')
+            todoItem.classList.add('todo-item', 'toggle-todo')
+            todoItem.setAttribute('data-project-index', projectIndex)
+            todoList.appendChild(todoItem)
+
+            //Icon
+            const taskIcon =  document.createElement('i')
+            taskIcon.classList.add('far', 'fa-regular', 'fa-circle', 'todo-icon', 'toggle-todo')
+
         }
     }
 
@@ -164,6 +224,9 @@ const dom = (()=>{
         confirmProjectModal,
         showConfirmModal,
         showProjectModal,
+        responsiveSidebar,
+        toggleSidebar,
+        showTasks,
     }
 })();
 

@@ -15,7 +15,7 @@
 </head>
 <body>
   <header>
-    <p class="logo">The Tracking List</p>
+    <i class="fa-solid fa-bars-staggered toggle-sidebar"></i><p class="logo">The Tracking List</p>
   </header>
 
   <nav class="sidebar">
@@ -54,7 +54,7 @@
             <span class="todo-head-nav">Inbox</span> (<span class="todo-header-project">Home</span>)
         </h1>
     </div>
-    <div>
+    <div class="todo-item-list">
         <div class="todo-item toggle-todo">
             <i class="far fa-regular fa-circle todo-icon toggle-todo"></i>
             <p class="todo-title toggle-todo">Do chores</p>
@@ -72,7 +72,6 @@
         <div class="todo-item-add add-todo-modal">
             <i class="far fa-solid fa-plus todo-icon add-todo-modal"></i>
             <p class="todo-title add-todo-modal">Add new task</p>
-            <p>2020-04-21</p>
         </div>
     </div>
   </main>
@@ -87,7 +86,7 @@
         <div class="modal-content">
             <form id="add-project-form" name="add-project-form" method="POST">
                 <div>
-                    <label for="project-title-label">Project Title</label>
+                    <label id="project-title-label" for="form-project-title">Project Title</label>
                     <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
                     <p class="title-error hide">Please fill up this area.</p>
                 </div>
@@ -97,31 +96,31 @@
                     <div id="project-icons">
                         <label class="radio radio-before">
                             <span class="radio-input">
-                              <input type="radio" id="project-house" name="project-icon" value="project-house" checked>
+                              <input type="radio" id="project-house" name="project-icon" value="fa-house" checked>
                               <span class="radio-control"><i class="far fa-solid fa-house"></i></span>
                             </span>
                         </label>
                         <label class="radio radio-before">
                             <span class="radio-input">
-                              <input type="radio" id="project-graduation" name="project-icon" value="project-graduation">
+                              <input type="radio" id="project-graduation" name="project-icon" value="fa-graduation-cap">
                               <span class="radio-control"><i class="far fa-solid fa-graduation-cap"></i></span>
                             </span>
                         </label>
                         <label class="radio radio-before">
                             <span class="radio-input">
-                              <input type="radio" id="project-heart" name="project-icon" value="project-heart">
+                              <input type="radio" id="project-heart" name="project-icon" value="fa-heart">
                               <span class="radio-control"><i class="far fa-regular fa-heart"></i></span>
                             </span>
                         </label>
                         <label class="radio radio-before">
                             <span class="radio-input">
-                              <input type="radio" id="project-shopping" name="project-icon" value="project-shopping">
+                              <input type="radio" id="project-shopping" name="project-icon" value="fa-cart-shopping">
                               <span class="radio-control"><i class="far fa-solid fa-cart-shopping"></i></span>
                             </span>
                         </label>
                         <label class="radio radio-before">
                             <span class="radio-input">
-                              <input type="radio" id="project-pencil" name="project-icon" value="project-pencil">
+                              <input type="radio" id="project-pencil" name="project-icon" value="fa-pencil">
                               <span class="radio-control"><i class="far fa-solid fa-pencil"></i></span>
                             </span>
                         </label>
@@ -156,14 +155,15 @@
     </div>
   </div>
   <!--Confirm modal-->
-  <div id="delete-proj-modal" class="modal hide">
+  <!--<div id="delete-proj-modal" class="modal hide">-->
+  <div id="confirm-modal" class="modal hide">
     <div class="modal-box">
       <div class="modal-head">
         <i class="close close-x far fa-solid fa-xmark"></i>
         <h2 class="confirm-modal-title"></h2>
       </div>
       <div class="modal-content">
-        <p>This action cannot be reverted.</p>
+        <p class="confirm-modal-content"></p>
         <div class="modal-line"></div>
         <div class="button-right">
           <button class="button close cancel" type="button">Cancel</button>

@@ -11,7 +11,7 @@ const validation = (()=>{
         if(projectTitle !== ''){
             project.createProject(projectTitle,projectIcon)
             dom.hideElement(dom.projectTitleError)
-            dom.hideElement(dom.projectModal)
+            dom.hideElement(dom.modals)
 
         }
         else if (projectTitle ===''){
@@ -28,8 +28,13 @@ const validation = (()=>{
         if(projectTitle !== ''){
             project.editProject(index, projectTitle, projectIcon)
             dom.hideElement(dom.projectTitleError)
+            dom.hideElement(dom.modals)
+            }
+        else if(projectTitle === ''){
+            dom.showElement(dom.projectTitleError)
         }
     }
+    
     return{
         addProject,
         editProject,
