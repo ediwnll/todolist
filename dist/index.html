@@ -60,14 +60,14 @@
             <p class="todo-title toggle-todo">Do chores</p>
             <p class="todo-item-date toggle-todo">2020-04-21</p>
             <i class="far fa-regular fa-pen-to-square edit-todo-modal"></i>
-            <i class="far fa-regular fa-trash-can delete-todo remove-todo"></i>
+            <i class="far fa-regular fa-trash-can remove-todo-modal"></i>
         </div>
         <div class="todo-item toggle-todo">
             <i class="far fa-regular fa-circle todo-icon toggle-todo"></i>
             <p class="todo-title toggle-todo">Do Laundry</p>
             <p class="todo-item-date toggle-todo">2020-04-21</p>
             <i class="far fa-regular fa-pen-to-square edit-todo-modal"></i>
-            <i class="far fa-regular fa-trash-can delete-todo remove-todo"></i>
+            <i class="far fa-regular fa-trash-can remove-todo-modal"></i>
         </div>
         <div class="todo-item-add add-todo-modal">
             <i class="far fa-solid fa-plus todo-icon add-todo-modal"></i>
@@ -154,6 +154,55 @@
         </div>
     </div>
   </div>
+  <!--Task modal-->
+  <div id="task-modal" class="modal show">
+    <div class="modal-box">
+        <div class="modal-head">
+            <i class="far fa-solid fa-xmark close close-x"></i>
+            <h2 class="task-modal-title">Add Task</h2>
+        </div>
+        <div class="modal-content">
+            <form id="task-form" name="task-form" method="POST">
+                <div>
+                    <label id="form-title-label" for="form-project-title">Task Title</label>
+                    <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
+                    <p class="title-error hide">Please fill up this area.</p>
+                </div>
+
+                <div>
+                  <label for="form-project-description" id="project-title-label">Task description</label>
+                  <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
+                  <p class="title-error hide">Please fill up this area.</p>
+                </div>
+
+                <div>
+                  <label for="form-task-priority" id="project-title-label">Priority</label>
+                  <select id="form-task-priority">
+                    <option value="none">Select priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                  <p class="title-error hide">Please fill up this area.</p>
+                </div>
+
+                <div>
+                  <label id="project-title-label" for="form-project-title">Schedule</label>
+                  <input type="date" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
+                  <p class="title-error hide">Please fill up this area.</p>
+                </div>
+
+                <div class="modal-line"></div>
+
+                <div class="button-right">
+                    <button class="button close cancel" type="button">Cancel</button>
+                    <button class="button" id="task-button" type="submit" href="#">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
   <!--Confirm modal-->
   <!--<div id="delete-proj-modal" class="modal hide">-->
   <div id="confirm-modal" class="modal hide">

@@ -1,6 +1,7 @@
 import dom from "./dom";
 import validation from "./validation";
 import project from "./projects";
+import tasks from "./tasks";
 
 const handler = (() => {
   function clickHandler() {
@@ -45,6 +46,7 @@ const handler = (() => {
       //Add task modal open
       else if(e.target.classList.contains("add-todo-modal")){
         console.log("Add task modal")
+        tasks.createTasks(0,'title','description', 'priority', 'date')
         //dom.showModal(dom.addTaskModal)
       }
       //Edit task modal
@@ -78,9 +80,16 @@ const handler = (() => {
         console.log("Toggle task")
       }
       //remove task
-      else if(e.target.classList.contains("remove-todo")){
+      else if(e.target.classList.contains("remove-todo-modal")){
         console.log("remove task")
         dom.showConfirmModal('removeTask', taskIndex)
+      }
+      //add task
+      else if(e.target.classList.contains('add-task')){
+        tasks.createTasks(0, 'title', 'description', 'priority', 'date')
+      }
+      else if(e.target.classList.contains('remove-task')){
+        console.log('edit task')
       }
     });
   }

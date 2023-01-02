@@ -1,5 +1,6 @@
 import project from "./projects";
 import dom from "./dom";
+import tasks from "./tasks";
 
 const validation = (()=>{
     function addProject(event){
@@ -34,10 +35,16 @@ const validation = (()=>{
             dom.showElement(dom.projectTitleError)
         }
     }
+
+    function addTask(event){
+        event.preventDefault()
+        tasks.createTasks(0,'title','description','priority','date')
+    }
     
     return{
         addProject,
         editProject,
+        addTask,
     }
 })();
 

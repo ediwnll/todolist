@@ -1,5 +1,4 @@
 import project from "./projects";
-import tasks from "./tasks";
 
 const dom = (()=>{
     const body = document.querySelector('body')
@@ -12,6 +11,7 @@ const dom = (()=>{
     const sidebar = document.querySelector('.sidebar')
     const main = document.querySelector('main')
     const todoList = document.querySelector('.todo-item-list')
+    const taskModal = document.querySelector('#task-modal')
 
     function responsiveSidebar(){
         if (window.innerWidth <= 960){
@@ -38,6 +38,38 @@ const dom = (()=>{
         }
     }
 
+    function showTaskModal(modal, index = false){
+        const modalHead = document.querySelector('.task-modal-title')
+        const modalSubmitButton = document.querySelector('#task-button')
+
+        taskModal.classList.remove('hide')
+        taskModal.classList.add('display')
+
+        if(modal === 'addTask'){
+            projectForm.reset()
+            modalHead.textContent = 'New Task'
+            modalSubmitButton.textContent = 'Add'
+            modalSubmitButton.classList.remove('edit-task')
+            modalSubmitButton.classList.add('add-task')
+            
+        }
+        else if(modal ==='editTask'){
+            const currentProjectTitle = project.projectList[index].title
+            const currentProjectIcon = project.projectList[index].icon
+
+            const projectTitle = document.querySelector('#form-project-title')
+            const projectIcon = document.querySelector(`input[value=${currentProjectIcon}]`)
+
+            projectTitle.value = currentProjectTitle
+            projectIcon.checked = true
+
+            modalHead.textContent = 'Edit Task'
+            modalSubmitButton.textContent = 'Edit'
+            modalSubmitButton.classList.remove('add-task')
+            modalSubmitButton.classList.add('edit-task')
+        }
+    }
+
     function showProjectModal(modal, index = false){
         const modalHead = document.querySelector('.project-modal-title')
         const modalSubmitButton = document.querySelector('#project-button')
@@ -51,7 +83,6 @@ const dom = (()=>{
             modalSubmitButton.textContent = 'Add'
             modalSubmitButton.classList.remove('edit-project')
             modalSubmitButton.classList.add('add-project')
-            
         }
         else if(modal ==='editProject'){
             const currentProjectTitle = project.projectList[index].title
@@ -193,8 +224,38 @@ const dom = (()=>{
             //Icon
             const taskIcon =  document.createElement('i')
             taskIcon.classList.add('far', 'fa-regular', 'fa-circle', 'todo-icon', 'toggle-todo')
+            todoItem.appendChild(taskIcon)
 
+            //Title
+            const taskTitle = document.createElement('p')
+            taskTitle.classList.add('todo-title','toggle-todo')
+            todoItem.appendChild(taskTitle)
+
+            //Date
+            const taskDate = document.createElement('p')
+            taskDate.classList.add('todo-item-date', 'toggle-todo')
+            todoItem.appendChild(taskDate)
+
+            //Edit Icon
+            const taskEditIcon = document.createElement('i')
+            taskEditIcon.classList.add('far', 'fa-regular', 'fa-pen-to-square', 'edit-todo-modal')
+            todoItem.appendChild(taskEditIcon)
+
+            //Delete Icon
+            const taskDeleteIcon = document.createElement('i')
+            taskDeleteIcon.classList.add('far', 'fa-regular', 'fa-trash-can', 'remove-todo-modal')
+            todoItem.appendChild(taskDeleteIcon)
         }
+        const taskAdd = document.createElement('div')
+        taskAdd.classList.add('todo-item-add', 'add-todo-modal')
+        todoList.appendChild(taskAdd)
+        const taskAddIcon = document.createElement('i')
+        taskAddIcon.classList.add('far', 'fa-solid', 'fa-plus', 'todo-icon', 'add-todo-modal')
+        taskAdd.appendChild(taskAddIcon)
+        const taskAddTitle = document.createElement('p')
+        taskAddTitle.classList.add('todo-title', 'add-todo-modal')
+        taskAddTitle.textContent = 'Add New Task'
+        taskAdd.appendChild(taskAddTitle)
     }
 
     /*function activeProjectIcon(icon){
@@ -227,6 +288,7 @@ const dom = (()=>{
         responsiveSidebar,
         toggleSidebar,
         showTasks,
+        showTaskModal,
     }
 })();
 
