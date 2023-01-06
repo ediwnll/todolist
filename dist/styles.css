@@ -20,6 +20,19 @@
     display: block;
 }
 
+.green{
+    color: var(--green);
+}
+.orange{
+    color:var(--orange);
+}
+.red{
+    color:var(--red);
+}
+.silver{
+    color:var(--silver)
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -293,7 +306,9 @@ main {
 }
 
 #form-project-title,
-#form-task-priority{
+#form-task-title,
+#form-task-priority,
+#form-task-schedule{
     width: 95%;
     height: 40px;
     padding: 0 8px;
@@ -305,7 +320,10 @@ main {
     transition: all 0.3s;
 }
 
-#form-project-title:focus{
+#form-project-title:focus,
+#form-task-title:focus,
+#form-task-priority:focus,
+#form-task-schedule:focus{
     border-color: var(--silver);
     outline: none;
     transition: 0.3s;
@@ -402,7 +420,7 @@ main {
 
 /*Form Error*/
 
-.title-error{
+.form-error{
     
     margin: 6px 0 0;
     font-size: 14px;

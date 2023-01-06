@@ -1,13 +1,14 @@
 import dom from "./dom";
 
 const project = (()=>{
-    const projectList=[]
+    
+    const projectList = []
 
     class Project{
         constructor(title,icon){
             this.title = title
             this.icon = icon
-            this.task = []
+            this.tasks = []
         }
     }
 
@@ -16,18 +17,22 @@ const project = (()=>{
         projectList.push(newProject)
         console.log(projectList)
         dom.showProjects()
+        dom.changeProject(projectList.length -1)
+        
     }
 
     function editProject(index, title, icon){
         projectList[index].title = title
         projectList[index].icon = icon
         dom.showProjects()
+        dom.changeProject(index)
     }
 
     function removeProject(index){
         projectList.splice(index, 1)
         dom.hideElement(dom.modals)
         dom.showProjects()
+        dom.changeProject(0)
     }
 
     return{

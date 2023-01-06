@@ -51,11 +51,12 @@
   <main>
     <div class="todo-head">
         <h1>
-            <span class="todo-head-nav">Inbox</span> (<span class="todo-header-project">Home</span>)
+            <span class="todo-head-nav">Inbox</span> (<span class="todo-head-project">Home</span>)
         </h1>
     </div>
     <div class="todo-item-list">
-        <div class="todo-item toggle-todo">
+      <!--
+      <div class="todo-item toggle-todo">
             <i class="far fa-regular fa-circle todo-icon toggle-todo"></i>
             <p class="todo-title toggle-todo">Do chores</p>
             <p class="todo-item-date toggle-todo">2020-04-21</p>
@@ -73,6 +74,7 @@
             <i class="far fa-solid fa-plus todo-icon add-todo-modal"></i>
             <p class="todo-title add-todo-modal">Add new task</p>
         </div>
+    -->
     </div>
   </main>
 
@@ -86,9 +88,10 @@
         <div class="modal-content">
             <form id="add-project-form" name="add-project-form" method="POST">
                 <div>
-                    <label id="project-title-label" for="form-project-title">Project Title</label>
+                    <label id="form-label" for="form-project-title">Project Title</label>
                     <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
-                    <p class="title-error hide">Please fill up this area.</p>
+                    <!-- causing error line 94-->
+                    <p class="form-error project-title-error hide">This field can't be empty.</p>
                 </div>
 
                 <div class="form-radio" >
@@ -155,7 +158,7 @@
     </div>
   </div>
   <!--Task modal-->
-  <div id="task-modal" class="modal show">
+  <div id="task-modal" class="modal hide">
     <div class="modal-box">
         <div class="modal-head">
             <i class="far fa-solid fa-xmark close close-x"></i>
@@ -164,32 +167,24 @@
         <div class="modal-content">
             <form id="task-form" name="task-form" method="POST">
                 <div>
-                    <label id="form-title-label" for="form-project-title">Task Title</label>
-                    <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
-                    <p class="title-error hide">Please fill up this area.</p>
+                    <label id="form-label" for="form-task-title">Task Title</label>
+                    <input type="text" id="form-task-title" name="task-title" autocomplete="off" placeholder="e.g. Drinks">
+                    <p class="form-error task-title-error hide">Please fill up this area.</p>
                 </div>
 
                 <div>
-                  <label for="form-project-description" id="project-title-label">Task description</label>
-                  <input type="text" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
-                  <p class="title-error hide">Please fill up this area.</p>
-                </div>
-
-                <div>
-                  <label for="form-task-priority" id="project-title-label">Priority</label>
-                  <select id="form-task-priority">
+                  <label for="form-task-priority" id="form-label">Priority</label>
+                  <select id="form-task-priority" name="task-priority">
                     <option value="none">Select priority</option>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                   </select>
-                  <p class="title-error hide">Please fill up this area.</p>
                 </div>
 
                 <div>
-                  <label id="project-title-label" for="form-project-title">Schedule</label>
-                  <input type="date" id="form-project-title" name="project-title" autocomplete="off" placeholder="e.g. Drinking Session">
-                  <p class="title-error hide">Please fill up this area.</p>
+                  <label id="form-label" for="form-task-schedule">Schedule</label>
+                  <input type="date" id="form-task-schedule" name="task-schedule" autocomplete="off">
                 </div>
 
                 <div class="modal-line"></div>
