@@ -59,18 +59,6 @@ const dom = (() => {
     }
   }
 
-  function activeLink(link) {
-    const navLinks = document.querySelectorAll("a.sidebar-link");
-    navLinks.forEach((element) => {
-      element.classList.remove("active");
-    });
-    if (link.classList.contains("sidebar-link-icon")) {
-      link.parentElement.classList.add("active");
-    } else {
-      link.classList.add("active");
-    }
-  }
-
   function showConfirmModal(modal, projectIndex, taskIndex) {
     const modalHead = document.querySelector(".confirm-modal-title");
     const modalSubmitButton = document.querySelector("#confirm-button");
@@ -361,7 +349,7 @@ const dom = (() => {
           if (project.projectList[a].tasks[i].priority === "low") {
             taskIcon.classList.add("green");
           } else if (project.projectList[a].tasks[i].priority === "medium") {
-            taskIcon.classList.add("yellow");
+            taskIcon.classList.add("orange");
           } else if (project.projectList[a].tasks[i].priority === "high") {
             taskIcon.classList.add("red");
           } else {
@@ -458,7 +446,6 @@ const dom = (() => {
     showProjects,
     showElement,
     hideElement,
-    activeLink,
     activeProject,
     confirmProjectModal,
     showConfirmModal,

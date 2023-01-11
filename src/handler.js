@@ -86,6 +86,7 @@ const handler = (() => {
       }
       //remove project
       else if(e.target.classList.contains('remove-project')){
+        console.log("remove project")
         project.removeProject(projectIndex)
       }
       //toggle task
