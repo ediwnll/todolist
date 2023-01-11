@@ -28,7 +28,10 @@
     </div>
 
     <div class="sidebar-projects">
-      <p class="sidebar-project-title">Projects<i class="fa-regular fa-square-plus add-proj-modal"></i></p>
+      <div class="sidebar-project-header">
+        <p class="sidebar-project-title">Projects</p>
+        <i class="fa-regular fa-square-plus add-proj-modal"></i>
+      </div>
       <div class="sidebar-line"></div>
       <div class="sidebar-project-list">
         <!--
@@ -51,7 +54,7 @@
   <main>
     <div class="todo-head">
         <h1>
-            <span class="todo-head-nav">Inbox</span> (<span class="todo-head-project">Home</span>)
+            <span class="todo-head-nav"></span>
         </h1>
     </div>
     <div class="todo-item-list">
@@ -175,7 +178,7 @@
                 <div>
                   <label for="form-task-priority" id="form-label">Priority</label>
                   <select id="form-task-priority" name="task-priority">
-                    <option value="none">Select priority</option>
+                    <option value="" disabled selected>Select priority</option>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
@@ -186,7 +189,10 @@
                   <label id="form-label" for="form-task-schedule">Schedule</label>
                   <input type="date" id="form-task-schedule" name="task-schedule" autocomplete="off">
                 </div>
-
+                <div id="select-project">
+                  <!--Select Project Box-->
+                </div>
+                <p class="form-error task-project-error hide">Please fill up this area.</p>
                 <div class="modal-line"></div>
 
                 <div class="button-right">

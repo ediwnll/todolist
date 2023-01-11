@@ -4,6 +4,6 @@ import handler from './handler';
 handler.clickHandler();
 dom.showProjects();
 dom.responsiveSidebar();
-dom.changeProject(0,0);
+dom.changeProject('inbox');
 handler.resizeHandler();
 console.log("Hello World")

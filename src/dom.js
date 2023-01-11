@@ -14,6 +14,7 @@ const dom = (() => {
   const taskModal = document.querySelector("#task-modal");
   const taskForm = document.querySelector("#task-form");
   const taskTitleError = document.querySelector(".task-title-error");
+  const taskProjectError = document.querySelector(".task-project-error");
 
   /*Sidebar and other functions*/
 
@@ -109,33 +110,32 @@ const dom = (() => {
     }
   }
 
+  //select link
   function activeProject(projectIndex) {
-    if (project.projectList.length >= 1) {
-      const allLink = document.querySelectorAll(
-        "a.sidebar-project, a.sidebar-link"
-      );
-      const inboxLink = document.querySelector(".sidebar-inbox");
-      const todayLink = document.querySelector(".sidebar-today");
-      const weekLink = document.querySelector(".sidebar-week");
-      const importantLink = document.querySelector(".sidebar-important");
-      const doneLink = document.querySelector(".sidebar-done");
-      const projectLinks = document.querySelectorAll("a.sidebar-project");
-      allLink.forEach((element) => {
-        element.classList.remove("active");
-      });
-      if (typeof projectIndex === "number") {
-        projectLinks[projectIndex].classList.add("active");
-      } else if (projectIndex === "inbox") {
-        inboxLink.classList.add("active");
-      } else if (projectIndex === "today") {
-        todayLink.classList.add("active");
-      } else if (projectIndex === "weekend") {
-        weekLink.classList.add("active");
-      } else if (projectIndex === "important") {
-        importantLink.classList.add("active");
-      } else if (projectIndex === "completed") {
-        doneLink.classList.add("active");
-      }
+    const allLink = document.querySelectorAll(
+      "a.sidebar-project, a.sidebar-link"
+    );
+    const inboxLink = document.querySelector(".sidebar-inbox");
+    const todayLink = document.querySelector(".sidebar-today");
+    const weekLink = document.querySelector(".sidebar-week");
+    const importantLink = document.querySelector(".sidebar-important");
+    const doneLink = document.querySelector(".sidebar-done");
+    const projectLinks = document.querySelectorAll("a.sidebar-project");
+    allLink.forEach((element) => {
+      element.classList.remove("active");
+    });
+    if (typeof projectIndex === "number") {
+      projectLinks[projectIndex].classList.add("active");
+    } else if (projectIndex === "inbox") {
+      inboxLink.classList.add("active");
+    } else if (projectIndex === "today") {
+      todayLink.classList.add("active");
+    } else if (projectIndex === "week") {
+      weekLink.classList.add("active");
+    } else if (projectIndex === "important") {
+      importantLink.classList.add("active");
+    } else if (projectIndex === "completed") {
+      doneLink.classList.add("active");
     }
   }
 
@@ -143,15 +143,15 @@ const dom = (() => {
     const headerNav = document.querySelector(".todo-head-nav");
     //const headerProject = document.querySelector(".todo-head-project");
 
-    if (project.projectList.length >= 1) {
-      if(typeof projectIndex === 'number'){
-        headerNav.textContent = project.projectList[projectIndex].title
-      }else{
-        headerNav.textContent = projectIndex[0].toUpperCase() + projectIndex.substring(1)
-      }
+    if (typeof projectIndex === "number") {
+      headerNav.textContent = project.projectList[projectIndex].title;
+    } else {
+      headerNav.textContent =
+        projectIndex[0].toUpperCase() + projectIndex.substring(1);
     }
   }
 
+  //change link
   function changeProject(projectIndex) {
     activeProject(projectIndex);
     renderHeader(projectIndex);
@@ -164,11 +164,13 @@ const dom = (() => {
     const modalHead = document.querySelector(".project-modal-title");
     const modalSubmitButton = document.querySelector("#project-button");
 
+    projectForm.reset();
+    dom.hideElement(dom.projectTitleError);
+
     projectModal.classList.remove("hide");
     projectModal.classList.add("display");
 
     if (modal === "addProject") {
-      projectForm.reset();
       modalHead.textContent = "New Project";
       modalSubmitButton.textContent = "Add";
       modalSubmitButton.classList.remove("edit-project");
@@ -242,16 +244,49 @@ const dom = (() => {
 
   /*Tasks functions*/
 
-  function showTaskModal(modal, projectIndex = false, taskIndex = false) {
+  function showTaskModal(modal, projectIndex, taskIndex = false) {
     const modalHead = document.querySelector(".task-modal-title");
+    const selectProject = document.querySelector("#select-project");
     const modalSubmitButton = document.querySelector("#task-button");
+
+    taskForm.reset();
+    dom.hideElement(dom.taskTitleError);
+    dom.hideElement(dom.taskProjectError);
 
     taskModal.classList.remove("hide");
     taskModal.classList.add("display");
 
     if (modal === "addTask") {
-      taskForm.reset();
       modalHead.textContent = "New Task";
+
+      selectProject.innerText = "";
+      if (Number.isNaN(projectIndex)) {
+        const createLabel = document.createElement("label");
+        createLabel.id = "form-label";
+        createLabel.innerText = "Project *";
+        createLabel.setAttribute("for", "form-task-project");
+        selectProject.appendChild(createLabel);
+
+        const createSelect = document.createElement("select");
+        createSelect.id = "form-task-project";
+        createSelect.setAttribute("name", "task-project");
+        selectProject.appendChild(createSelect);
+
+        const createOption = document.createElement("option");
+        createOption.setAttribute("value", "");
+        createOption.selected = true;
+        createOption.disabled = true;
+        createOption.innerText = "Select Project";
+
+        createSelect.appendChild(createOption);
+        for (let i = 0; i < project.projectList.length; i += 1) {
+          const newOption = document.createElement("option");
+          newOption.setAttribute("value", i);
+          newOption.innerText = project.projectList[i].title;
+          createSelect.appendChild(newOption);
+        }
+      }
+
       modalSubmitButton.textContent = "Add";
       modalSubmitButton.classList.remove("edit-task");
       modalSubmitButton.classList.add("add-task");
@@ -279,73 +314,98 @@ const dom = (() => {
   }
 
   function showTasks(projectIndex) {
+    let indexStart;
+    let indexEnd;
     todoList.textContent = "";
 
     if (project.projectList.length >= 1) {
-      for (
-        let i = 0;
-        i < project.projectList[projectIndex].tasks.length;
-        i += 1
-      ) {
-        const todoItem = document.createElement("div");
-        todoItem.classList.add("todo-item", "toggle-todo");
-        todoItem.setAttribute("data-project-index", projectIndex);
-        todoItem.setAttribute("data-task-index", i);
-        todoList.appendChild(todoItem);
-        //Create Icon
-        const taskIcon = document.createElement("i");
-        taskIcon.classList.add("far", "fa-regular", "toggle-todo");
-        if (project.projectList[projectIndex].tasks[i].priority === "low") {
-          taskIcon.classList.add("green");
-        } else if (
-          project.projectList[projectIndex].tasks[i].priority === "medium"
-        ) {
-          taskIcon.classList.add("yellow");
-        } else if (
-          project.projectList[projectIndex].tasks[i].priority === "high"
-        ) {
-          taskIcon.classList.add("red");
-        } else {
-          taskIcon.classList.add("silver");
+      if (typeof projectIndex === "number") {
+        indexStart = projectIndex;
+        indexEnd = projectIndex + 1;
+      } else {
+        indexStart = 0;
+        indexEnd = project.projectList.length;
+      }
+      for (let a = indexStart; a < indexEnd; a += 1) {
+        for (let i = 0; i < project.projectList[a].tasks.length; i += 1) {
+          if (
+            projectIndex === "today" &&
+            project.projectList[a].task[i].schedule === ""
+          ) {
+            continue;
+          } else if (
+            projectIndex === "week" &&
+            project.projectList[a].task[i].schedule === ""
+          ) {
+            continue;
+          } else if (
+            projectIndex === "important" &&
+            project.projectList[a].task[i].schedule === ""
+          ) {
+            continue;
+          } else if (
+            projectIndex === "completed" &&
+            project.projectList[a].tasks[i].done !== true
+          ) {
+            continue;
+          }
+          const todoItem = document.createElement("div");
+          todoItem.classList.add("todo-item", "toggle-todo");
+          todoItem.setAttribute("data-project-index", a);
+          todoItem.setAttribute("data-task-index", i);
+          todoList.appendChild(todoItem);
+
+          //Create Icon
+          const taskIcon = document.createElement("i");
+          taskIcon.classList.add("far", "fa-regular", "toggle-todo");
+          if (project.projectList[a].tasks[i].priority === "low") {
+            taskIcon.classList.add("green");
+          } else if (project.projectList[a].tasks[i].priority === "medium") {
+            taskIcon.classList.add("yellow");
+          } else if (project.projectList[a].tasks[i].priority === "high") {
+            taskIcon.classList.add("red");
+          } else {
+            taskIcon.classList.add("silver");
+          }
+          todoItem.appendChild(taskIcon);
+          //Create Title
+          const taskTitle = document.createElement("p");
+          taskTitle.classList.add("todo-title", "toggle-todo");
+          taskTitle.textContent = project.projectList[a].tasks[i].title;
+          if (project.projectList[a].tasks[i].done === true) {
+            taskIcon.classList.add("fa-circle-check");
+            taskTitle.classList.add("done");
+          } else {
+            taskIcon.classList.add("fa-circle");
+            taskTitle.classList.remove("done");
+          }
+          todoItem.appendChild(taskTitle);
+          //Create Date
+          if (project.projectList[a].tasks[i].schedule !== "") {
+            const taskDate = document.createElement("p");
+            taskDate.classList.add("todo-date", "toggle-task");
+            taskDate.textContent = project.projectList[a].tasks[i].schedule;
+            todoItem.appendChild(taskDate);
+          }
+          //Create Edit
+          const taskEditIcon = document.createElement("i");
+          taskEditIcon.classList.add(
+            "far",
+            "fa-regular",
+            "fa-pen-to-square",
+            "edit-todo-modal"
+          );
+          todoItem.appendChild(taskEditIcon);
+          //Create Delete
+          const taskDeleteIcon = document.createElement("i");
+          taskDeleteIcon.classList.add(
+            "far",
+            "fa-regular",
+            "fa-trash-can",
+            "remove-todo-modal"
+          );
+          todoItem.appendChild(taskDeleteIcon);
         }
-        todoItem.appendChild(taskIcon);
-        //Create Title
-        const taskTitle = document.createElement("p");
-        taskTitle.classList.add("todo-title", "toggle-todo");
-        taskTitle.textContent =
-          project.projectList[projectIndex].tasks[i].title;
-        if (project.projectList[projectIndex].tasks[i].done === true) {
-          taskIcon.classList.add("fa-circle-check");
-        } else {
-          taskIcon.classList.add("fa-circle");
-        }
-        todoItem.appendChild(taskTitle);
-        //Create Date
-        if (project.projectList[projectIndex].tasks[i].schedule !== "") {
-          const taskDate = document.createElement("p");
-          taskDate.classList.add("todo-date", "toggle-task");
-          taskDate.textContent =
-            project.projectList[projectIndex].tasks[i].schedule;
-          todoItem.appendChild(taskDate);
-        }
-        //Create Edit
-        const taskEditIcon = document.createElement("i");
-        taskEditIcon.classList.add(
-          "far",
-          "fa-regular",
-          "fa-pen-to-square",
-          "edit-todo-modal"
-        );
-        todoItem.appendChild(taskEditIcon);
-        //Create Delete
-        const taskDeleteIcon = document.createElement("i");
-        taskDeleteIcon.classList.add(
-          "far",
-          "fa-regular",
-          "fa-trash-can",
-          "remove-todo-modal"
-        );
-        todoItem.appendChild(taskDeleteIcon);
       }
       //Add Task Line
       const taskAdd = document.createElement("div");
@@ -359,6 +419,18 @@ const dom = (() => {
       taskAddTitle.classList.add("todo-title", "add-todo-modal");
       taskAddTitle.textContent = "Add New Task";
       taskAdd.appendChild(taskAddTitle);
+    } else {
+        const taskAdd = document.createElement('div')
+        taskAdd.classList.add('todo-item-add', 'add-proj-modal')
+        todoList.appendChild(taskAdd)
+        const taskAddIcon = document.createElement('i')
+        taskAddIcon.classList.add('far', 'fa-solid', 'fa-circle-exclamation', 'red', 'add-proj-modal')
+        taskAdd.appendChild(taskAddIcon)
+        const taskAddTitle = document.createElement('p')
+        taskAddTitle.classList.add('todo-title', 'add-proj-modal')
+        taskAddTitle.textContent = 'You do not have any projects, please create one.'
+        taskAdd.appendChild(taskAddTitle)
+        
     }
   }
 
@@ -380,6 +452,7 @@ const dom = (() => {
     projectForm,
     projectTitleError,
     taskTitleError,
+    taskProjectError,
     projectModal,
     modals,
     showProjects,
@@ -395,6 +468,7 @@ const dom = (() => {
     showTasks,
     showTaskModal,
     changeProject,
+    renderHeader,
   };
 })();
 

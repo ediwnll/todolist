@@ -145,14 +145,14 @@ header{
     cursor: pointer;
 }
 
-.add-proj-modal {
+.sidebar-project-header > .add-proj-modal {
     padding: 4px 6px;
     border-radius: 6px;
     -webkit-transition: all .2s;
     transition: all .2s;
 }
   
-.add-proj-modal:hover {
+.sidebar-project-header > .add-proj-modal:hover {
     background-color: var(--white);
     -webkit-transition: all .2s;
     transition: all .2s;
@@ -219,8 +219,21 @@ main {
     margin-right: 10px;
 }
 
-.remove-todo-modal{
-    color: var(--red);
+.remove-todo-modal,
+.edit-todo-modal {
+  padding: 6px 0;
+  width: 30px !important;
+  height: 30px;
+  border-radius: 6px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.remove-todo-modal:hover,
+.edit-todo-modal:hover {
+  background-color: var(--white);
+  -webkit-transition: all .2s;
+  transition: all .2s;
 }
 
 .todo-title {

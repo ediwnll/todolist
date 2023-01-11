@@ -8,39 +8,63 @@ const handler = (() => {
 
     let projectIndex = 0
     let taskIndex = 0
+    let link = 'inbox'
     dom.body.addEventListener("click", (e) => {
-      //Nav
-      if (e.target.classList.contains("sidebar-link")) {
-        console.log("nav link");
-        dom.activeLink(e.target);
-      }
       //Toggle Sidebar
-      else if(e.target.classList.contains('toggle-sidebar')){
+      if(e.target.classList.contains('toggle-sidebar')){
         console.log('Toggling Sidebar')
         dom.toggleSidebar()
       }
+      //Nav Links
+      else if(e.target.classList.contains('sidebar-inbox')){
+        console.log("nav inbox");
+        link = 'inbox'
+        dom.changeProject('inbox')
+      }
+      else if(e.target.classList.contains('sidebar-today')){
+        console.log('today')
+        link = 'today'
+        dom.changeProject('today')
+      }
+      else if(e.target.classList.contains('sidebar-week')){
+        console.log('week')
+        link = 'week'
+        dom.changeProject('week')
+        
+      }
+      else if(e.target.classList.contains('sidebar-important')){
+        link = 'important'
+        dom.changeProject('important')
+      }
+      else if(e.target.classList.contains('sidebar-done')){
+        link = 'completed'
+        dom.changeProject('completed')
+      }
       //Sidebar Project
       else if (e.target.classList.contains("sidebar-project")) {
-        projectIndex = (e.target.getAttribute('data-index'))?e.target.getAttribute('data-index'):
-        e.target.parentElement.getAttribute('data-index')
+        link = undefined
+        projectIndex = parseInt((e.target.getAttribute('data-index'))?e.target.getAttribute('data-index'):
+        e.target.parentElement.getAttribute('data-index'),10)
         dom.changeProject(projectIndex)
       }
       //Open add project modal
       else if (e.target.classList.contains("add-proj-modal")) {
+        link = undefined
         dom.showProjectModal('addProject');
         console.log("open proj modal");
       }
       //Edit project modal
       else if(e.target.classList.contains("edit-proj-modal")){
+        
         console.log("edit project modal")
-        projectIndex = e.target.parentElement.getAttribute('data-index');
+        projectIndex = parseInt(e.target.parentElement.getAttribute('data-index'), 10);
         dom.showProjectModal('editProject', projectIndex)
         //dom.showELement(dom.editProjectModal)
       }
       //Delete project modal
       else if(e.target.classList.contains("delete-proj-modal")){
         console.log("Delete project modal")
-        projectIndex = e.target.parentElement.getAttribute('data-index')
+        projectIndex = parseInt(e.target.parentElement.getAttribute('data-index'), 10);
         dom.showConfirmModal('removeProject', projectIndex)
       }
       //close modal
@@ -58,7 +82,7 @@ const handler = (() => {
       //Edit project
       else if(e.target.classList.contains('edit-project')){
         console.log("editing project")
-        validation.editProject(e, projectIndex)
+        validation.editProject(e, projectIndex, link)
       }
       //remove project
       else if(e.target.classList.contains('remove-project')){
@@ -67,29 +91,32 @@ const handler = (() => {
       //toggle task
       else if(e.target.classList.contains("toggle-todo")){
         console.log("Toggle task")
-        taskIndex = (e.target.getAttribute('data-task-index')) ? e.target.getAttribute('data-task-index')
-        :e.target.parentElement.getAttribute('data-task-index')
-        tasks.toggleTask(projectIndex,taskIndex)
+        projectIndex = parseInt((e.target.getAttribute('data-project-index')) ? e.target.getAttribute('data-project-index')
+        :e.target.parentElement.getAttribute('data-project-index'), 10)
+        taskIndex = parseInt((e.target.getAttribute('data-task-index')) ? e.target.getAttribute('data-task-index')
+        :e.target.parentElement.getAttribute('data-task-index'), 10)
+        tasks.toggleTask(projectIndex,taskIndex, link)
       }
       //Add task modal open
       else if(e.target.classList.contains("add-todo-modal")){
         console.log("Add task modal")
-        projectIndex = (e.target.parentElement.getAttribute('data-project-index'))? e.target.parentElement.getAttribute('data-project-index'):
-        e.target.getAttribute('data-project-index')
+        projectIndex = parseInt((e.target.parentElement.getAttribute('data-project-index'))? e.target.parentElement.getAttribute('data-project-index'):
+        e.target.getAttribute('data-project-index'),10)
         dom.showTaskModal('addTask', projectIndex)
         //dom.showModal(dom.addTaskModal)
       }
       //Edit task modal
       else if(e.target.classList.contains("edit-todo-modal")){
         console.log("Edit task modal")
-        taskIndex = e.target.parentElement.getAttribute('data-task-index')
+        taskIndex = parseInt(e.target.parentElement.getAttribute('data-task-index'),10)
         dom.showTaskModal('editTask', projectIndex, taskIndex)
         //dom.showModal(dom.editTaskModal)
       }
       //remove task modal
       else if(e.target.classList.contains("remove-todo-modal")){
         console.log("remove task")
-        taskIndex = e.target.parentElement.getAttribute('data-task-index')
+        projectIndex = parseInt(e.target.parentElement.getAttribute('data-project-index'), 10)
+        taskIndex = parseInt(e.target.parentElement.getAttribute('data-task-index'),10)
         dom.showConfirmModal('removeTask', projectIndex ,taskIndex)
       }
       //add task
@@ -99,11 +126,11 @@ const handler = (() => {
       //remove task
       else if(e.target.classList.contains('remove-task')){
         console.log('remove task')
-        tasks.removeTask(projectIndex,taskIndex)
+        tasks.removeTask(projectIndex,taskIndex, link)
       }
       //edit task
       else if(e.target.classList.contains('edit-task')){
-        validation.editTask(e, projectIndex, taskIndex);
+        validation.editTask(e, projectIndex, taskIndex, link);
       }
     });
   }

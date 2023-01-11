@@ -21,11 +21,11 @@ const project = (()=>{
         
     }
 
-    function editProject(index, title, icon){
+    function editProject(index, title, icon, link){
         projectList[index].title = title
         projectList[index].icon = icon
         dom.showProjects()
-        dom.changeProject(index)
+        dom.changeProject(link)
     }
 
     function removeProject(index){
