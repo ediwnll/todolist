@@ -19,9 +19,10 @@ const tasks = (()=>{
         }
         console.log(project.projectList[projectIndex].tasks[taskIndex].done)
         dom.showTasks(link)
+        localStorage.setItem('project', JSON.stringify(project.projectList))
     }
 
-    function createTasks(projectIndex, title, priority = 0, schedule = 0, link = projectIndex) {
+    function createTasks(projectIndex, title, priority = "", schedule = "", link = projectIndex) {
         const newTask = new Task(title, priority, schedule);
         project.projectList[projectIndex].tasks.push(newTask);
         if (Number.isNaN(parseInt(link, 10))){
@@ -29,6 +30,7 @@ const tasks = (()=>{
         } else {
             dom.showTasks(projectIndex)
         }
+        localStorage.setItem('project', JSON.stringify(project.projectList))
     }
 
     function editTask(projectIndex, taskIndex, title, priority, schedule, link=projectIndex){
@@ -36,12 +38,14 @@ const tasks = (()=>{
         project.projectList[projectIndex].tasks[taskIndex].priority = priority
         project.projectList[projectIndex].tasks[taskIndex].schedule = schedule
         dom.showTasks(link)
+        localStorage.setItem('project', JSON.stringify(project.projectList))
     }
 
     function removeTask(projectIndex, taskIndex, link=projectIndex){
         project.projectList[projectIndex].tasks.splice(taskIndex, 1)
         dom.hideElement(dom.modals)
         dom.showTasks(link)
+        localStorage.setItem('project', JSON.stringify(project.projectList))
     }
 
     return{

@@ -1,4 +1,5 @@
 import project from "./projects";
+import {format, differenceInDays, parseISO} from 'date-fns'
 
 const dom = (() => {
   const body = document.querySelector("body");
@@ -133,9 +134,11 @@ const dom = (() => {
 
     if (typeof projectIndex === "number") {
       headerNav.textContent = project.projectList[projectIndex].title;
+      document.title = `${project.projectList[projectIndex].title} - TODO`
     } else {
       headerNav.textContent =
         projectIndex[0].toUpperCase() + projectIndex.substring(1);
+      document.title = `${projectIndex[0].toUpperCase() + projectIndex.substring(1)} - TODO`
     }
   }
 
@@ -204,7 +207,11 @@ const dom = (() => {
       projectLink.appendChild(projectIcon);
 
       //create name
-      const projectName = document.createTextNode(project.projectList[i].title);
+      //const projectName = document.createTextNode(project.projectList[i].title);
+      //projectLink.appendChild(projectName);
+      const projectName = document.createElement('p')
+      projectName.classList.add('sidebar-project');
+      projectName.innerText = project.projectList[i].title;
       projectLink.appendChild(projectName);
 
       //create delete icon
@@ -290,11 +297,30 @@ const dom = (() => {
       const taskPriority = document.querySelector("#form-task-priority");
       const taskSchedule = document.querySelector("#form-task-schedule");
 
+      modalHead.textContent = 'Edit Task'
+
       taskTitle.value = currentTaskTitle;
       taskPriority.value = currentTaskPriority;
       taskSchedule.value = currentTaskSchedule;
 
-      modalHead.textContent = "Edit Task";
+      selectProject.innerText = ''
+      const createLabel = document.createElement('label')
+      createLabel.id = 'form-label'
+      createLabel.innerText = 'Project'
+      createLabel.setAttribute('for', 'form-task-project')
+      selectProject.appendChild(createLabel)
+
+      const createSelect = document.createElement('select')
+      createSelect.id = 'form-task-project'
+      createSelect.disabled = true
+      selectProject.appendChild(createSelect)
+
+      const createOption = document.createElement('option')
+      createOption.selected = true
+      createOption.innerText = project.projectList[projectIndex].title
+
+      createSelect.appendChild(createOption)
+      
       modalSubmitButton.textContent = "Edit";
       modalSubmitButton.classList.remove("add-task");
       modalSubmitButton.classList.add("edit-task");
@@ -304,6 +330,7 @@ const dom = (() => {
   function showTasks(projectIndex) {
     let indexStart;
     let indexEnd;
+    const currentDate = format(new Date(), 'yyyy-MM-dd')
     todoList.textContent = "";
 
     if (project.projectList.length >= 1) {
@@ -318,17 +345,17 @@ const dom = (() => {
         for (let i = 0; i < project.projectList[a].tasks.length; i += 1) {
           if (
             projectIndex === "today" &&
-            project.projectList[a].task[i].schedule === ""
+            project.projectList[a].tasks[i].schedule !== currentDate
           ) {
             continue;
           } else if (
             projectIndex === "week" &&
-            project.projectList[a].task[i].schedule === ""
+            !(differenceInDays(parseISO(project.projectList[a].tasks[i].schedule), parseISO(currentDate)) >= 0 && differenceInDays(parseISO(project.projectList[a].tasks[i].schedule), parseISO(currentDate)) <= 7)
           ) {
             continue;
           } else if (
             projectIndex === "important" &&
-            project.projectList[a].task[i].schedule === ""
+            project.projectList[a].tasks[i].priority !== "high"
           ) {
             continue;
           } else if (

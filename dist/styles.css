@@ -164,6 +164,16 @@ header{
     align-items: center;  
 }
 
+.sidebar-project p{
+    display:inline-block;
+    white-space: nowrap;
+    max-width: 151px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    margin: 0;
+}
+
 .delete-proj-modal{
     color: var(--red);
 }
@@ -263,7 +273,7 @@ main {
     height: 100%;
     padding: 0 20px;
     overflow: auto;
-    background-color:rgba(255, 255, 255, 0.95);
+    background-color:rgba(105, 105, 105, 0.98);
 }
 
 .modal-box{
@@ -420,7 +430,7 @@ main {
     transition: all 0.3s;
 }
 
-#project-button,#confirm-button {
+#project-button,#confirm-button, #task-button {
     background-color: var(--byzantium);
 }
   

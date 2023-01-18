@@ -2,7 +2,18 @@ import dom from "./dom";
 
 const project = (()=>{
     
-    const projectList = []
+    let projectList = []
+
+    //local storage
+    if(localStorage.getItem('project') === null){
+        projectList =[{
+            title:'Demo', icon:'fa-home', tasks:[],
+        }]
+    }
+    else{
+        const projectLocalStorage = JSON.parse(localStorage.getItem('project'));
+        projectList = projectLocalStorage
+    }
 
     class Project{
         constructor(title,icon){
@@ -18,6 +29,7 @@ const project = (()=>{
         console.log(projectList)
         dom.showProjects()
         dom.changeProject(projectList.length -1)
+        localStorage.setItem('project', JSON.stringify(projectList))
         
     }
 
@@ -25,14 +37,20 @@ const project = (()=>{
         projectList[index].title = title
         projectList[index].icon = icon
         dom.showProjects()
-        dom.changeProject(link)
+        if (link === undefined){ 
+            dom.changeProject(index) 
+        } else { 
+            dom.changeProject(link) 
+        }
+        localStorage.setItem('project', JSON.stringify(projectList)) 
     }
 
     function removeProject(index){
         projectList.splice(index, 1)
         dom.hideElement(dom.modals)
         dom.showProjects()
-        dom.changeProject(0)
+        dom.changeProject('inbox')
+        localStorage.setItem('project', JSON.stringify(projectList))
     }
 
     return{
