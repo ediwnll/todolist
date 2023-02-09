@@ -47,4 +47,4 @@ Modal
 ## Author
 
 👤 **Ediwnl**
-* GitHub: ediwnl
+* GitHub: https://github.com/ediwnll
