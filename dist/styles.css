@@ -1,6 +1,7 @@
 :root{
     --wheat: #EDD4B2;
     --darkwheat: #D0A98F;
+    --lightdarkwheat: #D0A98F;
     --byzantium: #4D243D;
     --silver: #51504e;
     --almond: #ECDCC9;
@@ -40,6 +41,7 @@ body{
     font-family: var(--maven);
     font-size: 18px;
     color: var(--silver);
+    overflow: hidden;
 }
 
 header{
@@ -62,6 +64,10 @@ header{
     font-size: 24px;
     font-weight: 500;
     font-family: var(--petit);
+}
+
+.far{
+    text-align: center;
 }
 
 /*SideBar*/
@@ -226,7 +232,7 @@ main {
 }
 
 .todo-item:hover,.todo-item-add:hover{
-    background-color: var(--darkwheat);
+    background-color: var(--lightdarkwheat);
     transition: all .2s;
 }
 
@@ -247,9 +253,9 @@ main {
 
 .remove-todo-modal:hover,
 .edit-todo-modal:hover {
-  background-color: var(--white);
+  background-color: var(--darkwheat);
   -webkit-transition: all .2s;
-  transition: all .2s;
+  transition: in .3s;
 }
 
 .todo-title {
